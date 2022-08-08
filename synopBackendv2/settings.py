@@ -29,10 +29,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'user_account.apps.UserAccountConfig'
+    'user_account.apps.UserAccountConfig',
+    'codes.apps.CodesConfig',
 ]
 
-# AUTH_USER_MODEL='user_account.User'
+AUTH_USER_MODEL='user_account.User'
+STATION_MODEL = 'user_acoount.Station'
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=300),
