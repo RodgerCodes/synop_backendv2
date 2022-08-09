@@ -6,6 +6,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from django.conf import settings
+from django.core.mail import send_mail
 # Create your views here.
 
 class GetStations(APIView):
@@ -39,3 +41,12 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
+
+# class ResetPassword(APIView):
+#     def get(self, request):
+#         subject = "Test email"
+#         msg ="Hello, this is a test email bruh"
+#         email_from = settings.EMAIL_HOST_USER
+#         recipient_list = ['rkumwanje@protonmail.com']
+#         send_mail(subject, msg, email_from, recipient_list)
+#         return Response({'email send successfully'})
