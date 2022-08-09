@@ -53,9 +53,28 @@ class EditData(APIView):
         user = request.user
         station = self.get_object(request.data['station_number'])
         code = Data.objects.get(id=request.data['data_id'])
-        if code.station != station.id:
+        if code.station_id != station.id and user.station != station.id:
             return Response({'message':'Forbidden'}, status=status.HTTP_403_FORBIDDEN)
         serializer = DataSerializer(code, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+
+
+class DeleteCode(APIView):
+    permission_classes =[IsAuthenticated]
+
+    def get_object(pk):
+        try:
+            return Data.objects.get(id=pk)
+        except:
+            raise Http404
+    
+    def delete(self, request):
+        user = request.user
+        code = self.get_object(request.data['data_id'])
+        station = Station.objects.filter(id=user.station).first()
+        if station.id != code.sation_id:
+            return Response({'message':'Forbidden'}, status=status.HTTP_403_FORBIDDEN)
+        code.delete()
+        return Response({'message':'Data deleted'})
