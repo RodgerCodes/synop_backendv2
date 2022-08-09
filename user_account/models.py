@@ -14,6 +14,7 @@ class Station(models.Model):
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
+    name = models.CharField(max_length=200, null=True)
     password = models.CharField(max_length=250)
     station = models.ForeignKey(Station, on_delete=models.SET_NULL, null=True)
     is_staff = models.BooleanField(
