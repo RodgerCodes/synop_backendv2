@@ -13,3 +13,13 @@ class GetStations(APIView):
         serializer.is_valid(raise_exception=True)
         return Response(serializer.data)
 
+
+class RegisterUser(APIView):
+    def post(self, request):
+        station_number = int(request.data['station_num'])
+        station = Station.objects.filter(station_number=station_number).first()
+        serializer = Userserializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(station=station)
+        return Response(serializer.data)
+
