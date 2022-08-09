@@ -3,11 +3,11 @@ from django.conf import settings
 # Create your models here.
 
 class Data(models.Model):
-    station_id = models.ForeignKey(settings.STATION_MODEL, on_delete=models.CASCADE)
+    station_id = models.ForeignKey('user_account.Station', on_delete=models.CASCADE, related_name="station_info")
     wind_speed = models.FloatField(null=True)
     wind_direction = models.PositiveIntegerField()
     max_temperature = models.FloatField(null=True)
-    min_temperature = models.FloatField(nuyll=True)
+    min_temperature = models.FloatField(null=True)
     dry_bulb = models.FloatField(null=True)
     wet_bulb = models.FloatField(null=True)
     dew_point = models.CharField(null=True, max_length=100)
@@ -28,4 +28,8 @@ class Data(models.Model):
     lowcloud_amount = models.CharField(null=True, max_length=10)
     middlecloud_amount = models.CharField(null=True,max_length=10)
     highcloud_amount = models.CharField(null=True, max_length=10)
+    lowcloud_height = models.CharField(null=True,max_length=10)
+    middlecloud_height = models.CharField(null=True, max_length=10)
+    highcloud_height = models.CharField(null=True, max_length=10)
+    created_at = models.DateTimeField(auto_now_add=True)
 

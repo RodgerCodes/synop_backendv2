@@ -34,7 +34,7 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL='user_account.User'
-STATION_MODEL = 'user_acoount.Station'
+
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=300),
