@@ -1,0 +1,1 @@
+web: gunicorn synopBackendv2.wsgi --log-file -
