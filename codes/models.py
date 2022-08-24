@@ -1,5 +1,7 @@
 from django.db import models
 from django.conf import settings
+
+
 # Create your models here.
 
 class Data(models.Model):
@@ -14,7 +16,7 @@ class Data(models.Model):
     pressure_value = models.FloatField(null=True)
     isobaric_value = models.PositiveIntegerField(null=True)
     ground_max_temp = models.FloatField(null=True)
-    low_clouds = models.CharField(max_length=350,)
+    low_clouds = models.CharField(max_length=350, )
     middle_clouds = models.CharField(max_length=350)
     high_clouds = models.CharField(max_length=350)
     sunshine = models.FloatField(null=True)
@@ -26,10 +28,16 @@ class Data(models.Model):
     past_weather = models.CharField(null=True, max_length=10)
     pastTwentyWeather = models.CharField(null=True, max_length=10)
     lowcloud_amount = models.CharField(null=True, max_length=10)
-    middlecloud_amount = models.CharField(null=True,max_length=10)
+    middlecloud_amount = models.CharField(null=True, max_length=10)
     highcloud_amount = models.CharField(null=True, max_length=10)
-    lowcloud_height = models.CharField(null=True,max_length=10)
+    lowcloud_height = models.CharField(null=True, max_length=10)
     middlecloud_height = models.CharField(null=True, max_length=10)
     highcloud_height = models.CharField(null=True, max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
 
+
+class synop(models.Model):
+    data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True)
+    code = models.CharField(max_length=1000, null=True, blank=True)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)

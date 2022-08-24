@@ -25,7 +25,7 @@ class RegisterUser(APIView):
         serializer = Userserializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save(station=station)
-        return Response({'message':'Account created successfully'}, status=status.HTTP_201_CREATED)
+        return Response({'message': 'Account created successfully'}, status=status.HTTP_201_CREATED)
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
