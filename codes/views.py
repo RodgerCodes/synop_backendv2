@@ -12,7 +12,7 @@ from .serializers import DataSerializer
 class GetStationData(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get_object(pk):
+    def get_object(self, pk):
         try:
             return Station.objects.get(station_number=pk)
         except:
@@ -21,7 +21,7 @@ class GetStationData(APIView):
     def get(self, request, station_number):
         user = request.user
         station = self.get_object(station_number)
-        if user.station != station.id:
+        if user.station != station:
             return Response({'message': 'Forbidden'}, status=status.HTTP_403_FORBIDDEN)
         station_data = Station.objects.filter(station=station.id)
         serializer = DataSerializer(station_data, many=True)
@@ -37,13 +37,13 @@ class SubmitData(APIView):
         serializer = DataSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(station_id=station)
-            return Response(serializer.data)
+            return Response({'message': 'Data successfully submitted'})
 
 
 class EditData(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get_object(pk):
+    def get_object(self, pk):
         try:
             return Station.objects.get(station_number=pk)
         except:
@@ -64,7 +64,7 @@ class EditData(APIView):
 class DeleteCode(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get_object(pk):
+    def get_object(self, pk):
         try:
             return Data.objects.get(id=pk)
         except:
