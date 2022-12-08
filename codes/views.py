@@ -21,9 +21,10 @@ class GetStationData(APIView):
     def get(self, request, station_number):
         user = request.user
         station = self.get_object(station_number)
+        print(user.station)
         if user.station != station:
             return Response({'message': 'Forbidden'}, status=status.HTTP_403_FORBIDDEN)
-        station_data = Station.objects.filter(station=station.id)
+        station_data = Data.objects.filter(station_id=station).prefetch_related('synop_data')
         serializer = DataSerializer(station_data, many=True)
         return Response(serializer.data)
 

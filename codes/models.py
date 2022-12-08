@@ -34,9 +34,15 @@ class Data(models.Model):
     highcloud_height = models.CharField(null=True, max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.station_id.station_name
+
 
 class synop(models.Model):
-    data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True)
+    data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name="synop_data")
     code = models.CharField(max_length=1000, null=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.code
