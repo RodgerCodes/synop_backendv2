@@ -7,6 +7,7 @@ from django.http import Http404
 from user_account.models import Station
 from user_account.serializers import Stationserializer
 from .serializers import DataSerializer, SynopSerializer
+from datetime import datetime
 
 
 # Create your views here.
@@ -121,4 +122,16 @@ class GetSingleCode(APIView):
     def get(self, request, synop_id):
         code = synop.objects.select_related('data').get(id=synop_id)
         serializer = SynopSerializer(code, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class TodayCodes(APIView):
+    """
+    View for getting synop codes submitted today
+    """
+    permission_classes =[IsAuthenticated]
+
+    def get(self, request):
+        today = datetime.today()
+        codes = synop.objects.filter(created=today)
+        serializer = SynopSerializer(codes, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
