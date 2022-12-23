@@ -85,7 +85,7 @@ class DeleteCode(APIView):
         return Response({'message': 'Data deleted'})
 
 
-# web apis
+# web apis start here
 class GetStations(APIView):
     """
     View for getting all stations
