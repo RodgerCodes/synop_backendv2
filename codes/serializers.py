@@ -9,6 +9,7 @@ class DataSerializer(serializers.ModelSerializer):
 
 
 class SynopSerializer(serializers.ModelSerializer):
+    data = DataSerializer(required=False)
     class Meta:
         model = synop
         fields = '__all__'

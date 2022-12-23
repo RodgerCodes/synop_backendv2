@@ -2,13 +2,16 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Data
+from .models import Data, synop
 from django.http import Http404
 from user_account.models import Station
-from .serializers import DataSerializer
+from user_account.serializers import Stationserializer
+from .serializers import DataSerializer, SynopSerializer
 
 
 # Create your views here.
+
+# app apis
 class GetStationData(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -79,3 +82,30 @@ class DeleteCode(APIView):
             return Response({'message': 'Forbidden'}, status=status.HTTP_403_FORBIDDEN)
         code.delete()
         return Response({'message': 'Data deleted'})
+
+
+# web apis
+class GetStations(APIView):
+    """
+    View for getting all stations
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        stations = Station.objects.all()
+        serializer = Stationserializer(stations, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+
+class GetSingleCode(APIView):
+    """
+    View for getting single synop code with its data
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, synop_id):
+        code = synop.objects.select_related('data').get(id=synop_id)
+        serializer = SynopSerializer(code, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
