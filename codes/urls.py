@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import GetStationData, SubmitData, EditData, DeleteCode,GetStations, GetSingleCode
+from .views import GetStationData, SubmitData, EditData, DeleteCode,GetStations, GetSingleCode, GetSingleStation
 
 urlpatterns = [
     path('station/<int:station_number>/', GetStationData.as_view()),
@@ -9,5 +9,6 @@ urlpatterns = [
 
     # web apis
     path('all-stations/', GetStations.as_view()),
+    path('station/<station_id>/', GetSingleStation.as_view()),
     path('codes/<synop_id>/', GetSingleCode.as_view()),
 ]

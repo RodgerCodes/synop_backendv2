@@ -95,6 +95,19 @@ class GetStations(APIView):
         stations = Station.objects.all()
         serializer = Stationserializer(stations, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+class GetSingleStation(APIView):
+    """
+    View for getting single station details and its data
+    """
+    permission_classes =[IsAuthenticated]
+
+    def get(self, request, station_id):
+        station = Station.objects.prefetch_related('station_info').get(id=station_id)
+        serializer = Stationserializer(station, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
 
 
