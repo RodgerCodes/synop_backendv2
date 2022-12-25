@@ -27,3 +27,10 @@ def getHome(request):
             messages.error(request,"Incorrect username or password")
 
     return render(request, 'home/login.html')
+
+
+@login_required(login_url="/")
+def logoutUser(request):
+    logout(request)
+    messages.success(request, "Successfully logged Out")
+    return redirect('accounts:login')
