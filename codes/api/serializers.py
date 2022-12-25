@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Data, synop
+from ..models import Data, synop
 
 
 class DataSerializer(serializers.ModelSerializer):
@@ -9,6 +9,7 @@ class DataSerializer(serializers.ModelSerializer):
 
 
 class SynopSerializer(serializers.ModelSerializer):
+    data = DataSerializer(required=False)
     class Meta:
         model = synop
         fields = '__all__'

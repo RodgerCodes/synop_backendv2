@@ -37,6 +37,9 @@ class Data(models.Model):
     def __str__(self):
         return self.station_id.station_name
 
+    class Meta:
+        ordering = ['-created_at']
+
 
 class synop(models.Model):
     data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name="synop_data")
@@ -46,3 +49,6 @@ class synop(models.Model):
 
     def __str__(self):
         return self.code
+
+    class Meta:
+        ordering = ['-created']

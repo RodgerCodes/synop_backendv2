@@ -98,7 +98,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR, 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,21 +116,28 @@ WSGI_APPLICATION = 'synopBackendv2.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'synop',
-        'USER': 'postgres',
-        'PASSWORD': 'adminuser',
-        'HOST': 'localhost',
-        'PORT': '5432'
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'synop',
+#         'USER': 'postgres',
+#         'PASSWORD': 'adminuser',
+#         'HOST': 'localhost',
+#         'PORT': '5432'
 
-    }
-}
+#     }
+# }
 
 # DATABASES = {
 #     'default': dj_database_url.config()
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'synop',
+    }
+}
 
 # DATABASES['default'] = dj_database_url.config()
 # DATABASES['default'] = dj_database_url.config(default=env('DATABASE_URL'))
