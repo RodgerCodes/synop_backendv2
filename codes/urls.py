@@ -3,7 +3,7 @@ from . import views
 
 app_name="codes"
 urlpatterns = [
-    path('dahboard/', views.GetDashboard, name='dashboard'),
+    path('', views.GetDashboard, name='dashboard'),
 
     # web apis
     # path('all-stations/', GetStations.as_view()),
