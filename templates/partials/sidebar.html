@@ -3,7 +3,7 @@
         <div class="-mx-6 px-6 py-4">
             <a href="#" title="home" class="flex">
                 <!-- <img src="../../../../assets/ecast.png" class="w-10" alt="ecast log"> -->
-                <p class="font-medium text-gray-700 mt-2 ml-2">{% if user.is_authenticated  %} Hi, {{user.email}}  {% endif %}</p>
+                <p class="font-medium text-gray-700 mt-2 ml-2">Synop</p>
             </a>
         </div>
   
@@ -15,32 +15,25 @@
         <ul class="space-y-2 tracking-wide mt-8">
             <li>
                 <a href="{% url 'codes:dashboard' %}" aria-label="dashboard" class="relative px-4 py-3 flex items-center space-x-4 rounded-xl">
-                   <!-- <img src="../../../../assets/dashboard.png" class="w-5 h-5" alt=""> -->
-                   <i class="fa-solid fa-house"></i>
-                    <span class="-mr-1 font-medium">Home</span>
+                   <img src="/static/images/dashboard.png" class="w-5 h-5" alt="">
+                    <span class="-mr-1 font-medium">Overview</span>
                 </a>
             </li>
             <li>
                 <a href="" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group">
-                   <!-- <img src="../../../../assets/user.png" class="w-5 h-5" alt=""> -->
+                   <img src="/static/images/climatology.png" class="w-5 h-5" alt="">
                     <span class="-mr-1 font-medium">Met Stations</span>
                 </a>
             </li>
             <li>
                 <a routerLinkActive="active" routerLink="/dashboard/your-music/" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group">
-                   <!-- <img src="../../../../assets/musical-note.png" class="w-5 h-5" alt=""> -->
+                   <img src="/static/images/monitor.png" class="w-5 h-5" alt="">
                     <span class="-mr-1 font-medium">Synops</span>
                 </a>
             </li>
-            <!-- <li>
-                <a routerLinkActive="active" href="#" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group">
-                   <img src="../../../../assets/folder.png" class="w-5 h-5" alt="">
-                    <span class="-mr-1 font-medium">Media</span>
-                </a>
-            </li> -->
             <li>
                 <a routerLinkActive="active" routerLink="/dashboard/followers" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group">
-                   <!-- <img src="../../../../assets/follow.png" class="w-5 h-5" alt=""> -->
+                   <img src="/static/images/user.png" class="w-5 h-5" alt="">
                     <span class="-mr-1 font-medium">Users</span>
                 </a>
             </li>
