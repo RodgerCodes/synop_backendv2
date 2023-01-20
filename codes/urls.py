@@ -4,6 +4,8 @@ from . import views
 app_name="codes"
 urlpatterns = [
     path('', views.GetDashboard, name='dashboard'),
+    path('met-stations/', views.GetStations, name="get_stations"),
+    path('synops/', views.GetSynops, name="get_synops"),
 
     # web apis
     # path('all-stations/', GetStations.as_view()),

@@ -13,9 +13,8 @@ from rest_framework_simplejwt.state import token_backend
 
 class GetStations(APIView):
     def get(self, request):
-        stations = Station.objects.all()
+        stations = Station.objects.prefetch_related('station').all()
         serializer = Stationserializer(stations,many=True)
-        serializer.is_valid(raise_exception=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

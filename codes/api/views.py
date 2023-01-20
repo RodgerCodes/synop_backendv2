@@ -38,9 +38,9 @@ class SubmitData(APIView):
         user = request.user
         station = Station.objects.filter(station_number=request.data['station_number']).first()
         serializer = DataSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(station_id=station)
-            return Response({'message': 'Data successfully submitted'})
+        serializer.is_valid(raise_exception=True)
+        serializer.save(station_id=station)
+        return Response({'message': 'Data successfully submitted'}, status=status.HTTP_201_CREATED)
 
 
 class EditData(APIView):

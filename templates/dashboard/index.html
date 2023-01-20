@@ -1,27 +1,50 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5 w-full h-screen">
+<div class="p-8">
+    <h1 class="font-bold text-gray-800 text-2xl">Overview</h1>
+    <!-- latest data view -->
+    <div class="mt-8">
+        <!-- latest synops -->
+        {% if synops %}
+        <div>
+            <!-- lastest synop data summaries -->
+        </div>
+        {% else %}
+        <div >
+            <p class="text-center">No Activity Today</p>
+            <div class="grid grid-cols-1 place-items-center justify-center">
+                <a  class="bg-white-500 shadow-lg rounded-lg px-12 py-8 flex mt-8">
+                    <i class="fa-solid fa-plus mr-2 text-xl text-gray-700"></i>
+                    <p class="text-md text-gray-700">Add New User </p>
+                   </a>
+            </div>
+        </div>
+        {% endif %}
+
+        
+    </div>
+
+</div>
+    <!-- <div id="main" class="">
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {% for synop in synops %}
             <div class="shadow-xl rounded-lg px-2 py-1 bg-white-500 mt-4">
-                <!-- top section -->
                 <div>
                     <p class="text-bule-700 font-bold text-lg">
                   {{data.station_id}}
                     </p>
                 </div>
-                <!-- data -->
                 <div>
                    <p class="text-xl my-2">{{code}}</p>
                 </div>
-                <!-- time -->
                 <div>
                    <p>{{created}}</p>
                 </div>
             </div>
             {% endfor %}
+            askjdhad
         </div>
-    </div>
-</section>
+    </div> -->
+
 {% endblock %}

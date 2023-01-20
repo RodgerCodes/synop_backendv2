@@ -2,7 +2,9 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import User
+from .models import User, Station
+from .forms import NewStation, NewUser
+from django.views.generic import CreateView
 
 def getHome(request):
     if request.method == 'POST':
@@ -34,3 +36,13 @@ def logoutUser(request):
     logout(request)
     messages.success(request, "Successfully logged Out")
     return redirect('accounts:login')
+
+
+class CreateStation(CreateView):
+    model = Station
+    form_class = NewStation
+    template_name = 'dashboard/new_station.html'
+
+    def form_valid(self, form):
+        form.save()
+        return redirect('codes:get_stations')
