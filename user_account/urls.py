@@ -6,4 +6,7 @@ urlpatterns = [
     path('', views.getHome, name="login"),
     path('logout', views.logoutUser, name="logout"),
     path('api/user/', include('user_account.api.urls')),
+
+    # path
+    path('stations/new/', views.CreateStation.as_view(), name="new_station")
 ]
