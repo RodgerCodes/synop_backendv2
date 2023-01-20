@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as d
 class Station(models.Model):
     station_name = models.CharField(max_length=100)
     station_number = models.PositiveIntegerField(unique=True)
+    district = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.station_name
@@ -23,7 +24,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text=d(
             'Designates whether the user can log into this admin site.'),
     )
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 

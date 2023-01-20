@@ -2,10 +2,7 @@ from rest_framework import serializers
 from ..models import User, Station
 
 
-class Stationserializer(serializers.ModelSerializer):
-    class Meta:
-        model = Station
-        fields = '__all__'
+
 
 class Userserializer(serializers.ModelSerializer):
     
@@ -18,3 +15,8 @@ class Userserializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+class Stationserializer(serializers.ModelSerializer):
+    class Meta:
+        model = Station
+        fields = '__all__'

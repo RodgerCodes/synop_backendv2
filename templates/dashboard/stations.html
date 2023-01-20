@@ -1,7 +1,35 @@
 {% extends "base.html" %} 
 {% block content %}
 <div class="p-8">
-    <h1 class="font-bold text-gray-800 text-2xl">Weather Station</h1>
+    <!-- page header -->
+    <div class="flex justify-between">
+        <h1 class="font-bold text-gray-800 text-2xl">Weather Station</h1>
+        <a href="" style="background-color:#EF68F3" class="font-medium text-white px-4 py-2 rounded-lg shadow-lg">New Station</a>
+
+    </div>
+
+    <!-- page body -->
+    <div class="mt-4">
+        {% if stations %}
+        <div>
+            <!-- display station card -->
+           {% for station in stations %}
+           <p>{{station}}</p>
+           {% endfor %}
+        </div>
+        {% else %}
+        <div>
+            <div >
+                <div class="grid grid-cols-1 place-items-center justify-center">
+                    <a  class="bg-white-500 shadow-lg rounded-lg px-12 py-8 flex mt-8">
+                        <i class="fa-solid fa-plus mr-2 text-xl text-gray-700"></i>
+                        <p class="text-md text-gray-700">Add New Station </p>
+                       </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
 
 </div>
 {% endblock %}
