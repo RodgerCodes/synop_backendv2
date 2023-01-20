@@ -43,3 +43,6 @@ class CreateStation(CreateView):
     form_class = NewStation
     template_name = 'dashboard/new_station.html'
 
+    def form_valid(self, form):
+        form.save()
+        return redirect('codes:get_stations')
