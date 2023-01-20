@@ -20,3 +20,11 @@ def GetStations(request):
     met_stations = Station.objects.prefetch_related('station').all()
     context['stations'] = met_stations
     return render(request, 'dashboard/stations.html', context)
+
+
+@login_required(login_url="/")
+def GetSynops(request):
+    context = {}
+    synops = synop.objects.all()
+    context['synops'] = synops
+    return render(request, 'dashboard/synops.html')
