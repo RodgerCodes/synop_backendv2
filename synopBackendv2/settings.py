@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'crispy_forms',
+    'crispy_tailwind',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'user_account.apps.UserAccountConfig',
