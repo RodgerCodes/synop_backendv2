@@ -9,4 +9,4 @@ class NewStation(forms.ModelForm):
 class NewUser(forms.ModelForm):
     class Meta:
         model = User
-        fields= ['email', 'name', 'password', 'station', 'is_staff']
+        fields= ['email', 'name', 'password', 'station', 'is_staff', 'is_superuser']

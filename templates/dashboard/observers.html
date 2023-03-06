@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-8">
+    <!-- page headers -->
+    <div class="flex justify-between">
+        <h1 class="font-bold text-gray-800 text-2xl">Observers</h1>
+        <a href="{% url 'accounts:new_observer'  %}" style="background-color:#EF68F3" class="font-medium text-white px-4 py-2 rounded-lg shadow-lg">New Observer</a>
+    </div>
+
+    <!-- content -->
+    <div class="mt-8">
+        {% if observers %}
+        <div>
+            <div class="grid grid-cols-4 gap-4">
+                {% for observer in observers %}
+                <div class="bg-white-500 shadow-lg rounded-lg p-4">
+                    <!-- images -->
+                    <div class="flex justify-between">
+                        <div>
+                            <img src="/static/images/user.png" class="w-28" alt="">
+                    <!-- info -->
+                    <div class="mt-2">
+                        <p class="font-medium text-md">{{observer.name}}</p>
+                        <p class="text-sm text-gray-700">{{observer.station}}</p>
+                    </div>
+                        </div>
+                        <!-- button -->
+                        <div class="flex flex-col justify-center align-center">
+                            <a href="" class="bg-blue-600 text-white text-center my-2 rounded-lg shadow-lg px-2 py-1.5"><i class="fa-solid fa-pen-to-square"></i> Reassign</a>
+                            <a href="{% url 'accounts:Remove_observer' observer.id %}" class="bg-red-600 text-white text-center my-2 rounded-lg shadow-lg px-2 py-1.5">                                <i class="fa-solid fa-trash"></i>
+                                Remove</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

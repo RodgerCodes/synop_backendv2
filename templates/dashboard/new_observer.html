@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-8">
+    <!-- page headers -->
+    <div class="flex justify-between">
+        <h1 class="font-bold text-gray-800 text-2xl">New User</h1>
+        <!-- <a href="{% url 'accounts:new_station'  %}" style="background-color:#EF68F3" class="font-medium text-white px-4 py-2 rounded-lg shadow-lg">New Observer</a> -->
+    </div>
+
+    <!-- form -->
+    <div class="mt-8">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="mb-6">
+                <label for="email" class="block mb-2 text-sm font-medium font-bold text-black">Email</label>
+               <input type="email" name="email" class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email address" required>
+            </div>
+            <div class="mb-6">
+                <label for="email" class="block mb-2 text-sm font-medium font-bold text-black">Name</label>
+               <input type="text" name="name" class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Observer's Name" required>
+            </div>
+            <div class="mb-6">
+                <label for="station" class="block mb-2 text-sm font-medium rounded-lg font-bold text-black">Station</label>
+                 <select name="station" id="" class="w-full h-9 py-2 " required>
+                    {% for station in stations %}
+                    <option value="{{station.station_number}}">{{station.station_name}}</option>
+                    {% endfor %}
+                 </select>
+              </div>
+              <div class="mb-6">
+               <div class="flex">
+                <div>
+                    <input type="checkbox" name="is_staff" id="">
+                    <label for="">Is Staff</label>
+                </div>
+                <div class="ml-8">
+                    <input type="checkbox" name="is_admin" id="">
+                    <label for="">Is Admin</label>
+                </div>
+               </div>
+            </div>
+            <div class="mb-6">
+                <input type="submit" value="Create User" class="bg-blue-500 text-white px-4 py-2 shadow-lg rounded-lg font-bold">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
