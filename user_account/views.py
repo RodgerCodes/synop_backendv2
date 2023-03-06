@@ -80,3 +80,13 @@ def NewObservers(request):
         messages.success(request, f"User with the email {request.POST.get('email')} created with password {new_password}")
         return redirect('accounts:get_observers')
     return render(request, 'dashboard/new_observer.html', context)
+
+
+@login_required(login_url="/")
+def RemoveObserver(request, userId):
+    user = User.objects.get(id=userId)
+    if not request.user.is_superuser:
+        messages.error(request, "Forbidden to perform this operation")
+    user.delete()
+    messages.success(request, f"User {user.name} deleted successfully")
+    return redirect('accounts:get_observers')

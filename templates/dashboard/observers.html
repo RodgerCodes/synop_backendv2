@@ -27,10 +27,8 @@
                         <!-- button -->
                         <div class="flex flex-col justify-center align-center">
                             <a href="" class="bg-blue-600 text-white text-center my-2 rounded-lg shadow-lg px-2 py-1.5"><i class="fa-solid fa-pen-to-square"></i> Reassign</a>
-                            <form action="" method="post" class="bg-red-500 text-white px-2 py-1.5 rounded-lg shadow-lg">
-                                <i class="fa-solid fa-trash"></i>
-                                <input type="submit"  value="Remove">
-                            </form>
+                            <a href="{% url 'accounts:Remove_observer' observer.id %}" class="bg-red-600 text-white text-center my-2 rounded-lg shadow-lg px-2 py-1.5">                                <i class="fa-solid fa-trash"></i>
+                                Remove</a>
                         </div>
                     </div>
                 </div>
