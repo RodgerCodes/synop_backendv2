@@ -8,5 +8,6 @@ urlpatterns = [
     path('api/user/', include('user_account.api.urls')),
 
     # path
-    path('stations/new/', views.CreateStation.as_view(), name="new_station")
+    path('stations/new/', views.CreateStation.as_view(), name="new_station"),
+    path('observers/list/', views.GetObservers, name="get_observers")
 ]

@@ -46,3 +46,12 @@ class CreateStation(CreateView):
     def form_valid(self, form):
         form.save()
         return redirect('codes:get_stations')
+    
+
+@login_required(login_url="/login")
+def GetObservers(request):
+    context = {}
+    observers = User.objects.filter(is_superuser=False)
+    context['observers'] = observers
+
+    return render(request, 'dashboard/observers.html', context)

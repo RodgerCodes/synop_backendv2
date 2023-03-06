@@ -32,14 +32,17 @@
                 </a>
             </li>
             <li>
-                <a routerLinkActive="active" routerLink="/dashboard/followers" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group">
+                <a href="{% url 'accounts:get_observers' %}" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group">
                    <img src="/static/images/user.png" class="w-5 h-5" alt="">
                     <span class="-mr-1 font-medium">Users</span>
                 </a>
             </li>
-             <li>
-
-         </li>
+            <li>
+                <a href="{% url 'codes:get_synops' %}" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group">
+                   <img src="/static/images/data.png" class="w-5 h-5" alt="">
+                    <span class="-mr-1 font-medium">Date Exporting</span>
+                </a>
+            </li>
         </ul>
     </div>
   
