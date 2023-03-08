@@ -4,8 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from .models import User, Station
-from .forms import NewStation, NewUser
+from .forms import NewStation, NewUser, ReassignForm
 from django.views.generic import CreateView
+from codes.models import synop, Data
 
 def getHome(request):
     if request.method == 'POST':
@@ -90,3 +91,36 @@ def RemoveObserver(request, userId):
     user.delete()
     messages.success(request, f"User {user.name} deleted successfully")
     return redirect('accounts:get_observers')
+
+
+@login_required(login_url="/")
+def ReassignObserver(request, userID):
+    # get current station observer is assigned
+    observer_instance = User.objects.get(id=userID)
+    form = ReassignForm(instance=observer_instance)
+
+    if request.method == 'POST':
+        station_instance = Station.objects.get(id=request.POST.get('station'))
+        if observer_instance.station == station_instance:
+            messages.error(request, "Observer is already assigned to this station")
+        form = ReassignForm(request.POST, instance=observer_instance)
+        if form.is_valid():
+            form.save(commit=False)
+            form.station = station_instance
+            form.save()
+            messages.success(request, f"Successfully Reassigned {observer_instance.name} to {station_instance.station_name}")
+            return redirect('accounts:get_observers')
+
+    return render(request, 'dashboard/assign.html', {'form' : form})
+
+
+@login_required(login_url="/")
+def GetSingleStation(request, stationId):
+    context = {}
+    station = Station.objects.get(id=stationId)
+    user = User.objects.filter(station=station)
+    synops = Data.objects.filter(station_id=station).prefetch_related('synop_data').order_by('-created_at')
+    context['user'] = user
+    context['synops'] = synops
+    context['station'] = station
+    return render(request, 'dashboard/station_details.html', context)

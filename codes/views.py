@@ -9,7 +9,7 @@ from datetime import datetime
 def GetDashboard(request):
     context = {}
     today = datetime.today()
-    synops = synop.objects.filter(created__year=today.year, created__month=today.month, created__day=today.day)[0:6]
+    synops = synop.objects.filter(created__year=today.year, created__month=today.month, created__day=today.day).select_related('synop_data')[0:6]
     context['synops'] = synops
     return render(request, 'dashboard/index.html', context)
 
