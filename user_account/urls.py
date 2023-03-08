@@ -11,5 +11,6 @@ urlpatterns = [
     path('stations/new/', views.CreateStation.as_view(), name="new_station"),
     path('observers/list/', views.GetObservers, name="get_observers"),
     path('observer/new/', views.NewObservers, name="new_observer"),
-    path('observer/<userId>/delete/', views.RemoveObserver, name="Remove_observer")
+    path('observer/<userId>/delete/', views.RemoveObserver, name="Remove_observer"),
+    path('reassign-observer/<userID>/', views.ReassignObserver, name="reasssign_observer")
 ]

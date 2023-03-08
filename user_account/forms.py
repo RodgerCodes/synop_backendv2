@@ -10,3 +10,9 @@ class NewUser(forms.ModelForm):
     class Meta:
         model = User
         fields= ['email', 'name', 'password', 'station', 'is_staff', 'is_superuser']
+
+
+class ReassignForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['station']
