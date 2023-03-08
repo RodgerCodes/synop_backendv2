@@ -9,16 +9,21 @@
         {% if synops %}
         <div>
             <!-- lastest synop data summaries -->
+            <div class="grid grid-cols-3 gap-4">
+                {% for synop in synops %}
+                <div class="bg-white-500 shadow-lg rounded-lg px-4 py-2">
+                    <!-- header -->
+                    <h1 class="text-bold">{{synop.data.station_id}}</h1>
+                    <div class="mt-2">
+                        <p>{{synop.code}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
         {% else %}
-        <div >
+        <div class="mt-8">
             <p class="text-center">No Activity Today</p>
-            <div class="grid grid-cols-1 place-items-center justify-center">
-                <a  class="bg-white-500 shadow-lg rounded-lg px-12 py-8 flex mt-8">
-                    <i class="fa-solid fa-plus mr-2 text-xl text-gray-700"></i>
-                    <p class="text-md text-gray-700">Add New User </p>
-                   </a>
-            </div>
         </div>
         {% endif %}
 

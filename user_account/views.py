@@ -6,6 +6,7 @@ from django.contrib import messages
 from .models import User, Station
 from .forms import NewStation, NewUser, ReassignForm
 from django.views.generic import CreateView
+from codes.models import synop, Data
 
 def getHome(request):
     if request.method == 'POST':
@@ -111,3 +112,15 @@ def ReassignObserver(request, userID):
             return redirect('accounts:get_observers')
 
     return render(request, 'dashboard/assign.html', {'form' : form})
+
+
+@login_required(login_url="/")
+def GetSingleStation(request, stationId):
+    context = {}
+    station = Station.objects.get(id=stationId)
+    user = User.objects.filter(station=station)
+    synops = Data.objects.filter(station_id=station).prefetch_related('synop_data').order_by('-created_at')
+    context['user'] = user
+    context['synops'] = synops
+    context['station'] = station
+    return render(request, 'dashboard/station_details.html', context)
