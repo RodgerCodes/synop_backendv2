@@ -121,6 +121,7 @@ def GetSingleStation(request, stationId):
     user = User.objects.filter(station=station)
     synops = Data.objects.filter(station_id=station).prefetch_related('synop_data').order_by('-created_at')
     context['user'] = user
+    print(station.district)
     context['synops'] = synops
     context['station'] = station
     return render(request, 'dashboard/station_details.html', context)
