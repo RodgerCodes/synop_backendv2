@@ -5,7 +5,12 @@
     <div class="flex justify-between">
 
         <h1 class="font-bold text-gray-800 text-2xl flex">{{station.station_name}} <p class="font-normal mx-2"> - </p>  <p class="font-normal">{{station.district}}</p></h1> 
-
+        <div>
+            <form action="{% url 'accounts:delete_station' station.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="px-5 py-1.5 bg-red-500 font-bold text-white shadow-lg rounded-lg">Delete</button>
+            </form>
+        </div>
     </div>
 
     <!-- page content -->
@@ -14,7 +19,7 @@
         <div class="mt-2">
             {% if user %}
                 {% for user in user %}
-                <p>Under {{user.name}}</p>
+                <p class="text-sm">Under {{user.name}} leadership</p>
                 {% endfor %}
             {% else %}
                 <p>No Observer assigned</p>
@@ -35,4 +40,8 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block script %}
+<script></script>
 {% endblock %}

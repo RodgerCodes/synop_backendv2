@@ -125,3 +125,13 @@ def GetSingleStation(request, stationId):
     context['synops'] = synops
     context['station'] = station
     return render(request, 'dashboard/station_details.html', context)
+
+@login_required(login_url="/")
+def DeleteStation(request, stationId):
+    station = Station.objects.get(id=stationId)
+    user = request.user
+    if not user.is_superuser:
+        messages.error(request, "Not authorized to perform this action")
+    station.delete()
+    messages.success(request, f"{station.station_name} has been successfully deleted")
+    return redirect('codes:get_stations')
