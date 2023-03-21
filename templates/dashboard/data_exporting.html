@@ -11,8 +11,6 @@
     <!-- page content  start here-->
     <div class="mt-8 flex justify-between">
         <!--date picker -->
-     {% if data %}
-     {% else %}
         <form action="" method="post" class="">
             {% csrf_token %}
             <div class="grid grid-cols-1 place-items-center">
@@ -47,7 +45,7 @@
                        <option value="" disabled selected>Weather Parameter</option>
                        <option value="dry_bulb">Temperature</option>
                        <option value="rainfall_amount">Rainfall</option>
-                       <option value="wind_speed">Wind</option>
+                       <!-- <option value="wind_speed">Wind</option> -->
                     </select>
                </div>
             </div>
@@ -57,6 +55,5 @@
             
         </form>
     </div>
-     {% endif %}
 </div>
 {% endblock %}
