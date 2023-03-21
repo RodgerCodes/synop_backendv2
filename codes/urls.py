@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.GetDashboard, name='dashboard'),
     path('met-stations/', views.GetStations, name="get_stations"),
     path('synops/', views.GetSynops, name="get_synops"),
+    path('data-exporting/', views.GetDataExporting, name="data_exporting")
 
     # web apis
     # path('all-stations/', GetStations.as_view()),

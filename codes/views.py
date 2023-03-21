@@ -28,3 +28,10 @@ def GetSynops(request):
     synops = synop.objects.all()
     context['synops'] = synops
     return render(request, 'dashboard/synops.html')
+
+@login_required(login_url="/")
+def GetDataExporting(request):
+    context = {}
+    if request.method == 'POST':
+        print(request.POST)
+    return render(request, "dashboard/data_exporting.html")
