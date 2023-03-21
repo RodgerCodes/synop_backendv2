@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from .models import User, Station
-from .forms import NewStation, NewUser, ReassignForm
+from .forms import NewStation, ReassignForm, EditStationForm
 from django.views.generic import CreateView
 from codes.models import synop, Data
 
@@ -125,6 +125,19 @@ def GetSingleStation(request, stationId):
     context['synops'] = synops
     context['station'] = station
     return render(request, 'dashboard/station_details.html', context)
+
+
+@login_required(login_url="/")
+def EditStation(request, stationId):
+    station = Station.objects.get(id=stationId)
+    form = EditStationForm(instance=station)
+    if request.method == 'POST':
+        form = EditStationForm(request.POST, instance=station)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"{station.station_name} successfully updated")
+            return redirect('codes:get_stations')
+    return render(request, 'dashboard/edit_station.html', context={'form':form})
 
 @login_required(login_url="/")
 def DeleteStation(request, stationId):

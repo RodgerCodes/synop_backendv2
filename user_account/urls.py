@@ -14,5 +14,6 @@ urlpatterns = [
     path('observer/<userId>/delete/', views.RemoveObserver, name="Remove_observer"),
     path('reassign-observer/<userID>/', views.ReassignObserver, name="reasssign_observer"),
     path('single-station/<stationId>/', views.GetSingleStation, name="single_station"),
+    path('station/<stationId>/edit/', views.EditStation, name="edit_station"),
     path('station/<stationId>/delete/', views.DeleteStation, name="delete_station")
 ]
