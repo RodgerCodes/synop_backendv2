@@ -16,3 +16,8 @@ class ReassignForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['station']
+
+class EditStationForm(forms.ModelForm):
+    class Meta:
+        model = Station
+        fields = ['station_number']

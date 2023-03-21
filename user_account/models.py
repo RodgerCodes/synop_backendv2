@@ -8,6 +8,8 @@ class Station(models.Model):
     station_name = models.CharField(max_length=100)
     station_number = models.PositiveIntegerField(unique=True)
     district = models.CharField(max_length=200, null=True)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.station_name

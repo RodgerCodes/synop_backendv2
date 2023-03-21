@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-8">
+    <!-- page header starts here -->
+    <div>
+        <h1 class="font-bold text-gray-800 text-2xl">Data Exportation</h1>
+        <p class="text-sm text-grey-500">Create a range of your dataset</p>
+    </div>
+    <!-- page header ends here -->
+
+    <!-- page content  start here-->
+    <div class="mt-8 flex justify-between">
+        <!--date picker -->
+     {% if data %}
+     {% else %}
+        <form action="" method="post" class="">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 place-items-center">
+                <div date-rangepicker class="flex items-center">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <input name="start" datepicker-format="mm/dd/yyyy"  type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start" required>
+                    </div>
+                    <span class="mx-4 text-gray-500">to</span>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <input name="end" datepicker-format="mm/dd/yyyy"  type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end" required>
+                    </div>
+                    <div class="relative">
+                   
+    
+                </div>
+                <div class="ml-4">
+                     <select name="station" id="" class="w-full rounded-lg h-10 px-4 py-2 focus:outline-none" required>
+                        <option value="" disabled selected>Select your Weather station</option>
+                        {% for station in stations %}
+                        <option value="{{station.station_number}}">{{station.station_name}}</option>
+                        {% endfor %}
+                     </select>
+                </div>
+                <div class="ml-4">
+                    <select name="parameter" id="" class="w-full rounded-lg h-10 px-4 py-2 focus:outline-none" required>
+                       <option value="" disabled selected>Weather Parameter</option>
+                       <option value="dry_bulb">Temperature</option>
+                       <option value="rainfall_amount">Rainfall</option>
+                       <option value="wind_speed">Wind</option>
+                    </select>
+               </div>
+            </div>
+            <button type="submit" class="px-5 py-1.5 bg-blue-500 shadow-lg rounded-lg mt-6 text-white font-bold">Submit</button>
+
+            </div>
+            
+        </form>
+    </div>
+     {% endif %}
+</div>
+{% endblock %}

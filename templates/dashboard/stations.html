@@ -14,7 +14,7 @@
             <!-- display station card -->
            <div class="grid grid-cols-4 gap-4 place-items-center">
             {% for station in stations %}
-               <a href="" class="shadow-lg rounded-lg px-4 py-2 w-5/6">
+               <a href="{% url 'accounts:single_station' station.id %}" class="shadow-lg rounded-lg px-4 py-2 w-5/6">
                   <div class="flex justify-between">
                     <img src="/static/images/climatology.png" class="w-10 h-10" alt="">
                     <div>
