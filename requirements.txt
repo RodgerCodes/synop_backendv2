@@ -8,8 +8,10 @@ django-dotenv==1.4.2
 django-environ==0.9.0
 djangorestframework==3.13.1
 djangorestframework-simplejwt==5.2.0
+et-xmlfile==1.1.0
 gunicorn==20.1.0
 numpy==1.24.2
+openpyxl==3.1.2
 pandas==1.5.3
 Pillow==9.3.0
 psycopg2==2.9.5
