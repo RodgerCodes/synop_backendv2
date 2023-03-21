@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.db.models import Q
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Data, synop
 from user_account.models import Station
@@ -45,13 +47,16 @@ def GetDataExporting(request):
         end = end.replace('/', '-')
         
         #converts date string from above to datetime object
-        formated_start_date = datetime.strptime(start, '%Y-%m-%d')
-        formated_end_date = datetime.strptime(end, '%Y-%m-%d')
+        formated_start_date = datetime.strptime(start, '%m-%d-%Y')
+        formated_end_date = datetime.strptime(end, '%m-%d-%Y')
 
-        response = HttpResponse(content_type="text/csv")
+        response = HttpResponse(content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
         response['Content-Disposition'] =  f'attachment; filename={station.station_name}.xlsx'
 
-        # TODO: make db query for data
+        data = Data.objects.filter(Q(station_id=station) and Q(created_at__range=[formated_start_date, formated_end_date])).values_list('created_at', request.POST.get('parameter'))
+        
+        if len(data) == 0:
+            messages.error(request, "Data for the period specified not available")
 
         workbook = Workbook()
         worksheet = workbook.active
@@ -67,9 +72,20 @@ def GetDataExporting(request):
             cell = worksheet.cell(row=row_num, column=col_num)
             cell.value = col_title
 
+        # assigning
+        for item in data:
+            row_num += 1
 
+            rows = [
+                item.dry_bulb if request.POST.get('parameter') == 'dry_bulb' else item.rainfall_amount,
+                item.created_at
+            ]
 
+            for col_num, cell_value in enumerate(rows, 1):
+                cell = worksheet.cell(row=row_num, column=col_num)
+                cell.value = cell_value
 
-        print(formated_start_date, formated_end_date)
+        workbook.save(response)
+        return response
     context['stations'] = stations
     return render(request, "dashboard/data_exporting.html", context)
