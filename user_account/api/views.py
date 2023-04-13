@@ -45,7 +45,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data = super(MyTokenObtainPairSerializer, self).validate(attrs)
         payload = token_backend.decode(data['access'], verify=True)
         user = User.objects.get(id=payload['user_id'])
-        print(user.station)
         data.update({'user': payload, 'station_number': user.station.station_number})
         return data
 
