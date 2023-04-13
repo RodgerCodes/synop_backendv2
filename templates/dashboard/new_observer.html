@@ -21,7 +21,7 @@
             </div>
             <div class="mb-6">
                 <label for="station" class="block mb-2 text-sm font-medium rounded-lg font-bold text-black">Station</label>
-                 <select name="station" id="" class="w-full h-9 py-2 " required>
+                 <select name="station" class="w-full h-9 py-2 " required>
                     {% for station in stations %}
                     <option value="{{station.station_number}}">{{station.station_name}}</option>
                     {% endfor %}
@@ -30,13 +30,13 @@
               <div class="mb-6">
                <div class="flex">
                 <div>
-                    <input type="checkbox" name="is_staff" id="">
+                    <input type="checkbox" name="is_staff" value="1">
                     <label for="">Is Staff</label>
                 </div>
-                <div class="ml-8">
-                    <input type="checkbox" name="is_admin" id="">
-                    <label for="">Is Admin</label>
-                </div>
+<!--                <div class="ml-8">-->
+<!--                    <input type="checkbox" name="is_admin" id="">-->
+<!--                    <label for="">Is Admin</label>-->
+<!--                </div>-->
                </div>
             </div>
             <div class="mb-6">
