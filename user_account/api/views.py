@@ -9,12 +9,14 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 # from django.conf import settings
 # from django.core.mail import send_mail
 from rest_framework_simplejwt.state import token_backend
+
+
 # Create your views here.
 
 class GetStations(APIView):
     def get(self, request):
         stations = Station.objects.prefetch_related('station').all()
-        serializer = Stationserializer(stations,many=True)
+        serializer = Stationserializer(stations, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -27,6 +29,7 @@ class RegisterUser(APIView):
         serializer.save(station=station)
         return Response({'message': 'Account created successfully'}, status=status.HTTP_201_CREATED)
 
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
@@ -37,15 +40,15 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # ...
 
         return token
-    
+
     def validate(self, attrs):
         data = super(MyTokenObtainPairSerializer, self).validate(attrs)
         payload = token_backend.decode(data['access'], verify=True)
         user = User.objects.get(id=payload['user_id'])
+        print(user.station)
         data.update({'user': payload, 'station_number': user.station.station_number})
         return data
 
+
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-
-

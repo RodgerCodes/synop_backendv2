@@ -8,6 +8,7 @@ from .forms import NewStation, ReassignForm, EditStationForm
 from django.views.generic import CreateView
 from codes.models import synop, Data
 
+
 def getHome(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -28,7 +29,7 @@ def getHome(request):
                 messages.success(request, "Login successfully")
                 return redirect('codes:dashboard')
         else:
-            messages.error(request,"Incorrect username or password")
+            messages.error(request, "Incorrect username or password")
 
     return render(request, 'home/login.html')
 
@@ -48,7 +49,7 @@ class CreateStation(CreateView):
     def form_valid(self, form):
         form.save()
         return redirect('codes:get_stations')
-    
+
 
 @login_required(login_url="/")
 def GetObservers(request):
@@ -65,21 +66,23 @@ def NewObservers(request):
     context['stations'] = stations
 
     if request.method == 'POST':
-        if request.POST.get('email')  == None or request.POST.get('name') == None:
+        print(request.POST)
+        if request.POST.get('email') == None or request.POST.get('name') == None:
             messages.error(request, "Please fill in all forms")
         new_password = "Blantyre2023"
         station = Station.objects.get(station_number=int(request.POST.get('station')))
+        print(request.POST.get("is_staff"))
         User.objects.create(
-            email = request.POST.get('email'),
-            name = request.POST.get('name'),
-            station = station,
-            is_staff = request.POST.get('is_staff'),
-            is_superuser= request.POST.get('is_admin'),
-            password = make_password(new_password)
+            email=request.POST.get('email'),
+            name=request.POST.get('name'),
+            station=station,
+            is_staff=True if request.POST.get('is_staff') == "on" else False,
+            password=make_password(new_password)
         )
 
-        messages.success(request, f"User with the email {request.POST.get('email')} created with password {new_password}")
-        return redirect('accounts:get_observers')
+        messages.success(request,
+                         f"User with the email {request.POST.get('email')} created with password {new_password}")
+        # return redirect('accounts:get_observers')
     return render(request, 'dashboard/new_observer.html', context)
 
 
@@ -108,10 +111,11 @@ def ReassignObserver(request, userID):
             form.save(commit=False)
             form.station = station_instance
             form.save()
-            messages.success(request, f"Successfully Reassigned {observer_instance.name} to {station_instance.station_name}")
+            messages.success(request,
+                             f"Successfully Reassigned {observer_instance.name} to {station_instance.station_name}")
             return redirect('accounts:get_observers')
 
-    return render(request, 'dashboard/assign.html', {'form' : form})
+    return render(request, 'dashboard/assign.html', {'form': form})
 
 
 @login_required(login_url="/")
@@ -137,7 +141,8 @@ def EditStation(request, stationId):
             form.save()
             messages.success(request, f"{station.station_name} successfully updated")
             return redirect('codes:get_stations')
-    return render(request, 'dashboard/edit_station.html', context={'form':form})
+    return render(request, 'dashboard/edit_station.html', context={'form': form})
+
 
 @login_required(login_url="/")
 def DeleteStation(request, stationId):
