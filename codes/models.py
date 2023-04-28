@@ -22,7 +22,7 @@ class Data(models.Model):
     evaporation = models.FloatField(null=True)
     relative_humidity = models.PositiveIntegerField(null=True)
     rainfall_amount = models.CharField(null=True, max_length=100)
-    total_Cloud_amount = models.PositiveIntegerField()
+    total_Cloud_amount = models.CharField(max_length=30, null=True)
     present_weather = models.CharField(null=True, max_length=10)
     past_weather = models.CharField(null=True, max_length=10)
     pastTwentyWeather = models.CharField(null=True, max_length=10)
