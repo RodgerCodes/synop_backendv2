@@ -1,9 +1,8 @@
 from codes.models import Data, synop
 from django.http import Http404
 from user_account.models import Station
-from user_account.api.serializers import Stationserializer
 from .serializers import DataSerializer, SynopSerializer
-from datetime import datetime
+# from datetime import datetime
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework import status
@@ -23,11 +22,11 @@ class GetStationData(APIView):
     def get(self, request, station_number):
         user = request.user
         station = self.get_object(station_number)
-        print(user.station)
+        print(station_number)
         if user.station != station:
             return Response({'message': 'Forbidden'}, status=status.HTTP_403_FORBIDDEN)
-        station_data = Data.objects.filter(station_id=station).prefetch_related('synop_data')
-        serializer = DataSerializer(station_data, many=True)
+        station_data = synop.objects.filter(station=station)
+        serializer = SynopSerializer(station_data, many=True)
         return Response(serializer.data)
 
 
@@ -37,7 +36,7 @@ class SubmitData(APIView):
     def post(self, request):
         user = request.user
         station = Station.objects.filter(station_number=request.data['station_number']).first()
-        serializer = DataSerializer(data=request.data)
+        serializer = DataSerializer(data=request.data, context=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save(station_id=station)
         return Response({'message': 'Data successfully submitted'}, status=status.HTTP_201_CREATED)
