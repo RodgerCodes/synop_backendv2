@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 class Data(models.Model):
-    station_id = models.ForeignKey('user_account.Station', on_delete=models.CASCADE, related_name="station_info")
+    station_id = models.ForeignKey('user_account.Station', on_delete=models.CASCADE, related_name="station_info", null=True, blank=True)
     wind_speed = models.FloatField(null=True)
     wind_direction = models.PositiveIntegerField()
     max_temperature = models.FloatField(null=True)
@@ -13,7 +13,7 @@ class Data(models.Model):
     wet_bulb = models.FloatField(null=True)
     dew_point = models.CharField(null=True, max_length=100)
     pressure_value = models.FloatField(null=True)
-    isobaric_value = models.PositiveIntegerField(null=True)
+    isobaric_value = models.CharField(max_length=10, null=True)
     ground_max_temp = models.FloatField(null=True)
     low_clouds = models.CharField(max_length=350, )
     middle_clouds = models.CharField(max_length=350)
@@ -42,6 +42,7 @@ class Data(models.Model):
 
 
 class synop(models.Model):
+    station = models.ForeignKey('user_account.Station', on_delete=models.CASCADE, null=True, blank=True)
     data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name="synop_data")
     code = models.CharField(max_length=1000, null=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
